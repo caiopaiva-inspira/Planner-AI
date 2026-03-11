@@ -12,7 +12,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }: { task: T
             editInputRef.current.focus()
             editInputRef.current.setSelectionRange(editTitle.length, editTitle.length)
         }
-    }, [isEditing])
+    }, [isEditing, editTitle.length])
 
     const handleSaveEdit = () => {
         setIsEditing(false)

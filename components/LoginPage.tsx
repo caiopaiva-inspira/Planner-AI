@@ -38,8 +38,9 @@ export default function LoginPage({ onLogin }: { onLogin: () => void }) {
                 if (signInError) throw signInError
                 onLogin()
             }
-        } catch (err: any) {
-            setError(err.message || "Ocorreu um erro ao tentar autenticar.")
+        } catch (err) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            setError((err as any).message || "Ocorreu um erro ao tentar autenticar.")
         } finally {
             setIsLoading(false)
         }

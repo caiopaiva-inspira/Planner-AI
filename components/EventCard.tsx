@@ -29,7 +29,7 @@ export default function EventCard({ event, onDelete, onEdit }: { event: Event; o
             editInputRef.current.focus()
             editInputRef.current.setSelectionRange(editTitle.length, editTitle.length)
         }
-    }, [isEditing])
+    }, [isEditing, editTitle.length])
 
     const handleSaveEdit = () => {
         setIsEditing(false)

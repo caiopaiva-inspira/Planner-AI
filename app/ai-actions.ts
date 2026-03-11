@@ -2,22 +2,13 @@
 
 import { generateText } from "ai"
 import { createGroq } from "@ai-sdk/groq"
-import { z } from "zod"
 import { createEvent, createTask, updateEvent, updateTask, deleteEvent, deleteTask, toggleTaskComplete } from "./actions"
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 })
 
-const agendaSchema = z.object({
-  action: z.enum(["create", "update", "delete", "complete"]).describe("A ação desejada: criar novo, atualizar/editar, apagar, ou marcar tarefa como completa."),
-  type: z.enum(["event", "task"]).describe("Tipo: event (tem horário) ou task (afazer de check)."),
-  id: z.string().optional().describe("ID do item, obrigatório para update, delete ou complete. Extraia da lista de contexto fornecida."),
-  title: z.string().optional().describe("Título do evento ou tarefa."),
-  dateKey: z.string().optional().describe("Data YYYY-MM-DD. Assuma data atual se não especificado para criações."),
-  timeStart: z.string().optional().describe("Hora início HH:mm."),
-  timeEnd: z.string().optional().describe("Hora término HH:mm.")
-})
+
 
 export async function processAIText(text: string, currentYear: number, currentMonth: number, currentDay: number, agendaContextText: string) {
   const dataAtualStr = `${currentYear}-${String(currentMonth).padStart(2, "0")}-${String(currentDay).padStart(2, "0")}`
@@ -61,10 +52,10 @@ export async function processAIText(text: string, currentYear: number, currentMo
       if (object.type === "event") {
         const start = object.timeStart || "12:00"
         const end = object.timeEnd || "13:00"
-        const event = await createEvent(object.title, object.dateKey, start, end)
+        await createEvent(object.title, object.dateKey, start, end)
         return { success: true, message: `Evento "${object.title}" criado com sucesso!` }
       } else {
-        const task = await createTask(object.title, object.dateKey)
+        await createTask(object.title, object.dateKey)
         return { success: true, message: `Tarefa "${object.title}" criada com sucesso!` }
       }
     } 

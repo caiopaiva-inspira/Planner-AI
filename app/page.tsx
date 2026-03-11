@@ -65,7 +65,7 @@ export default function Home() {
     if (view === "dashboard") {
       fetchAgenda()
     }
-  }, [view, currentMonth])
+  }, [view, currentMonth, fetchAgenda])
 
   const handleLogin = () => setView("dashboard")
 
