@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #F5F5F7;
+    --card: #FFFFFF;
+    --primary-text: #111111;
+    --secondary-text: #8E8E93;
+    --active: #111111;
+    --active-text: #FFFFFF;
+    --accent-dot: #C7C7CC;
+    --brand-blue: #007AFF;
+  }
+
+  .dark {
+    --background: #000000;
+    --card: #1C1C1E;
+    --primary-text: #F2F2F7;
+    --secondary-text: #636366;
+    --active: #FFFFFF;
+    --active-text: #000000;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--primary-text);
+}
